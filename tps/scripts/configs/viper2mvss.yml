@@ -1,0 +1,31 @@
+EXP_NAME: viper2mvss
+SOURCE: Viper
+TARGET: MVSS
+DATA_DIRECTORY_SOURCE: ../../../TPSold/data/Viper
+DATA_DIRECTORY_TARGET: ../../../datasets/MVSeg_Dataset/data
+DATA_LIST_SOURCE: ../dataset/Viper_list/train.txt
+DATA_LIST_TARGET: ../dataset/MVSS_list/train.txt
+NUM_CLASSES: 13
+NUM_WORKERS: 4
+TRAIN:
+  LEARNING_RATE: 0.0001
+  EARLY_STOP: 40000
+  LAMBDA_T: 0.1
+  SCALING_RATIO:
+    - 0.8
+    - 1.2
+  flow_path: ../../../datasets/MVSeg_Dataset/estimated_optical_flow_MVSS_train
+  flow_path_src: ../../../TPSold/data/estimated_optical_flow_viper_train
+  DA_METHOD: TPS
+  INFO_TARGET: ../dataset/MVSS_list/info_Viper.json
+  INPUT_SIZE_SOURCE:
+      - 1280
+      - 720
+  SNAPSHOT_DIR: ../../experiments/snapshots/viper2mvss
+  SAVE_PRED_EVERY: 2000
+TEST:
+  SNAPSHOT_DIR: ['../../experiments/snapshots/viper2mvss']
+  MODE: video_demo
+  INFO_TARGET: ../dataset/MVSS_list/info_Viper.json
+  SNAPSHOT_STEP: 2000
+  SNAPSHOT_START_ITER: 2000

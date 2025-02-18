@@ -1,0 +1,31 @@
+EXP_NAME: synthia2mvss
+SOURCE: SynthiaSeq
+TARGET: MVSS
+DATA_DIRECTORY_SOURCE: ../../../TPSold/data/SynthiaSeq/SEQS-04-DAWN
+DATA_DIRECTORY_TARGET: ../../../datasets/MVSeg_Dataset/data
+DATA_LIST_SOURCE: ../dataset/SynthiaSeq_list/train.txt
+DATA_LIST_TARGET: ../dataset/MVSS_list/train.txt
+NUM_CLASSES: 11
+NUM_WORKERS: 4
+TRAIN:
+  LEARNING_RATE: 0.0001
+  EARLY_STOP: 40000
+  LAMBDA_T: 0.1
+  SCALING_RATIO:
+    - 0.8
+    - 1.2
+  flow_path: ../../../datasets/MVSeg_Dataset/estimated_optical_flow_MVSS_train
+  flow_path_src: ../../../TPSold/data/estimated_optical_flow_synthia_train
+  DA_METHOD: TPS
+  INFO_TARGET: ../dataset/MVSS_list/info_SynthiaSeq.json
+  INPUT_SIZE_SOURCE:
+    - 1280
+    - 640
+  SNAPSHOT_DIR: ../../experiments/snapshots/synthia2mvss
+  SAVE_PRED_EVERY: 1000
+TEST:
+  SNAPSHOT_DIR: ['../../experiments/snapshots/synthia2mvss']
+  MODE: video_best
+  INFO_TARGET: ../dataset/MVSS_list/info_SynthiaSeq.json
+  SNAPSHOT_STEP: 1000
+  SNAPSHOT_START_ITER: 1000
